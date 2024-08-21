@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding : 0;
+  background-color: aliceblue;
 }
 
 .search-engine {
@@ -33,4 +34,65 @@ body {
   outline: none;
   cursor: pointer;
   padding: 13px 15px;
+}
+
+.App{
+  text-align: center;
+  margin: 50px auto 0px;
+  width : 90%;
+  max-width: 700px;
+  border-radius: 20px;
+  height: 470px;
+  padding: 20px 15px;
+  background-color: rgb(141, 172, 198);
+}
+
+.city-name{
+  margin-bottom: 10px;
+
+}
+
+.loading{
+  font-size: 50px;
+  font-weight: bolder;
+  color: black;
+}
+
+.date {
+  font-size: 18px;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.temp {
+  font-size: 54px;
+  color : black;
+  font-weight: bold;
+  text-align: center;
+}
+
+.description{
+  color: black;
+  font-weight: 500;
+  font-size:22px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.weather-info{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top:60px;
+  padding: 0px 20px;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.column  {
+  display: flex;
+  align-items: center;
+  line-height: 10px;
 }

@@ -1,11 +1,11 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Search from "../search";
+
 export default function Weather() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
     const [weatherData, setWeatherData] = useState(null);
+
     async function fetchWeatherData(param) {
         try {
             setLoading(true);
@@ -16,12 +16,12 @@ export default function Weather() {
                 setLoading(false);
             }
             console.log(data, 'data');
-        }
-        catch (e) {
+        } catch (e) {
             setLoading(false);
             console.log(e);
         }
     }
+
     function handleSearch() {
         fetchWeatherData(search);
     }
@@ -34,9 +34,14 @@ export default function Weather() {
             year: 'numeric'
         });
     }
+
     useEffect(() => {
-        fetchWeatherData('Los Angeles')
+        fetchWeatherData('Los Angeles');
     }, []);
+
+    function convertKelvinToCelsius(tempK) {
+        return tempK - 273.15;
+    }
 
     return (
         <div>
@@ -46,24 +51,38 @@ export default function Weather() {
                 handleSearch={handleSearch}
             />
 
-            {
-                loading ? <div>loading..</div> :
-                    <div>
-                        <div className="city-name">
-                            <h2>{weatherData?.name} , <span>{weatherData?.sys?.country}</span></h2>
-                        </div>
-                        <div className="date">
-                            <span>{getCurrentDate()}</span>
-                        </div>
-                        <div>
-                            {weatherData?.main?.temp}
-                        </div>
-                        <p classname="description">
-                            {weatherData && weatherData[0] ? weatherData[0].description : ''}
-                        </p>
+            {loading ? (
+                <div>loading..</div>
+            ) : (
+                <div>
+                    <div className="city-name">
+                        <h2>{weatherData?.name}, <span>{weatherData?.sys?.country}</span></h2>
                     </div>
-            }
-
+                    <div className="date">
+                        <span>{getCurrentDate()}</span>
+                    </div>
+                    <div className="temp">
+                        {weatherData?.main?.temp ? `${convertKelvinToCelsius(weatherData.main.temp).toFixed(2)} °C` : ''}
+                    </div>
+                    <p className="description">
+                        {weatherData?.weather?.[0]?.description || ''}
+                    </p>
+                    <div className="weather-info">
+                        <div className="column">
+                            <div>
+                                <p className="wind">{weatherData?.wind?.speed}</p>
+                                <p>Wind Speed</p>
+                            </div>
+                        </div>
+                        <div className="column">
+                            <div>
+                                <p className="humidity">{weatherData?.main?.humidity}%</p>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
